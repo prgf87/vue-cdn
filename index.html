@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        padding: 100px 0;
+        width: 80%;
+        text-align: center;
+        background: #ddd;
+        margin: 1em;
+        display: inline-block;
+      }
+      .book-cover {
+        width: 90px;
+        height: 160px;
+        object-position: center;
+        object-fit: cover;
+      }
+      body {
+        background: #aaa;
+        max-width: 960px;
+        margin: 25px auto;
+      }
+      p,
+      h3,
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        list-style-type: none;
+        margin: 20px auto;
+        padding: 50px 30px;
+        background: #eee;
+        border-radius: 20px;
+      }
+      li.fav {
+        background: #eaf;
+        color: azure;
+      }
+    </style>
+    <title>Vue with Firebase App</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Book List</h2>
+
+      <a :href="url">
+        <button>My Portfolio</button>
+      </a>
+
+      <div>
+        <button @click="toggleBooks">
+          <span v-if="showBooks"> Hide Books </span>
+          <span v-else> Show Books </span>
+        </button>
+      </div>
+      <div v-if="showBooks">
+        <p>Currently holding {{books.length}} books</p>
+        <ul>
+          <li
+            v-for="book in books"
+            :class="{fav: book.favourite}"
+            @click="handleFavToggle(book)"
+          >
+            <img :src="book.cover" :alt="book.title" class="book-cover" />
+            <h4>{{book.title}}</h4>
+            <p>{{book.author}} - {{book.age}}</p>
+          </li>
+        </ul>
+        <h3>Favourites</h3>
+        <ul>
+          <li
+            v-for="book in filteredBooks"
+            :class="{fav: book.favourite}"
+            @click="handleFavToggle(book)"
+          >
+            <img :src="book.cover" :alt="book.title" class="book-cover" />
+            <h4>{{book.title}}</h4>
+            <p>{{book.author}} - {{book.age}}</p>
+          </li>
+        </ul>
+      </div>
+      <!-- <br />
+      <div class="box" @mouseover="handleEvent">Mouse-Over (enter)</div>
+      <div class="box" @mouseleave="handleEvent">Mouse-Leave</div>
+      <div class="box" @dblclick="handleEvent($event, 5)">Double-Click</div>
+      <div class="box" @mousemove="handleMouse">
+        Mouse Position - {{x }}.{{y}}
+      </div> -->
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
